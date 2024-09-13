@@ -1,0 +1,54 @@
+---
+- name: Install Jenkins and Java 17
+  hosts: Master
+  become: true
+  tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install OpenJDK 17
+      apt:
+       name: openjdk-17-jdk
+       state: present
+         
+    - name: Check Java version
+      command: java --version
+      register: java_version
+
+    - name: Print Java version
+      debug:
+        msg: "{{ java_version.stdout }}"
+
+    - name: Add Jenkins repository key
+      get_url:
+        url: https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+        dest: /usr/share/keyrings/jenkins-keyring.asc
+
+    - name: Add Jenkins repository
+      apt_repository:
+        repo: deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/
+        state: present
+
+    - name: Update apt cache again after adding Jenkins repository
+      apt:
+        update_cache: yes
+
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+
+    - name: Start Jenkins service
+      systemd:
+        name: jenkins
+        state: started
+        enabled: yes
+
+    - name: Ensure Jenkins on port 8080
+      wait_for:
+        port: 8080
+        delay: 10
+        state: started
+...          
