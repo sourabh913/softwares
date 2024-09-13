@@ -1,0 +1,12 @@
+---
+- hosts: Master
+  tasks:
+  - name: Ansible zip multiple files example
+    archive:
+     path:
+      - /etc/ansible/sourabh1.txt
+      - /etc/ansible/sourabh2.txt
+     dest: /etc/ansible/sourabh.zip
+     format: zip
+...
+

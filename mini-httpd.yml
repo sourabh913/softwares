@@ -1,0 +1,9 @@
+---
+- hosts: Worker1
+  become: true
+  tasks:
+  - name: Install Package
+    package: name=mini-httpd state=present
+  - name: Start mini-httpd service
+    service: name=mini-httpd state=started
+...

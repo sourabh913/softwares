@@ -1,0 +1,7 @@
+---
+- hosts: Master
+  become: true
+  tasks:
+  - name: Create directory
+    file: path=/etc/ansible/kris state=directory mode=775 owner=root group=root
+...

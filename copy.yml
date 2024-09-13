@@ -1,0 +1,7 @@
+---
+- hosts: Master
+  become: true
+  tasks:
+  - name: Copy content to file
+    copy: content="Hello World Sourabh \n" dest=/etc/ansible/sourabh.txt
+...

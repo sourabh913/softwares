@@ -1,0 +1,9 @@
+---
+- hosts: Master
+  tasks:
+  - name: Replace example
+    replace:
+      path: /etc/ansible/sourabh.txt
+      regexp: 'Hello'
+      replace: 'World'
+...

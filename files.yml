@@ -1,0 +1,7 @@
+---
+- hosts: Master
+  become: true
+  tasks:
+   - name: Create a file
+     file: path=/etc/ansible/kris.txt state=touch
+...

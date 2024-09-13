@@ -1,0 +1,8 @@
+---
+- hosts: Worker1
+  become: true
+  tasks:
+  - name: Remove User
+    user: name=sourabh state=absent remove=yes force=yes
+...
+
